@@ -11,13 +11,13 @@ router.post("/verifyOtp",async(req,res)=>{
     const email = req.cookies.email;
     const user = await userModel.findOne({email}).exec();
     if(user &&  Date.now() < user.expireDate ){
-        const compareOtp = bcrypt.compare(otp,user.otp);
+        const compareOtp = await bcrypt.compare(otp,user.otp);
         if(compareOtp){
             user.verified = true;
             user.expireDate = null,
             user.otp = null;
             await user.save();
-            res.clearCookie("email",{httpOnly:true,sameSite:"strict"})
+            res.clearCookie("email",{secure:true,sameSite:"lax"});
             res.json("user verified");
         }else{
             res.status(400).json("invalid otp");

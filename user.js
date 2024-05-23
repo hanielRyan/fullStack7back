@@ -44,7 +44,7 @@ res.status(409).json("user already exists.");
     }
     const create = await userModel.create(modifiedUser);
     await create.save();
-    res.cookie("email",user.email,{httpOnly:true,sameSite:"strict"});
+    res.cookie("email",user.email,{secure:true,sameSite:"lax"});
     res.json("user created").status(200);
 }
     }catch(err){
