@@ -9,7 +9,7 @@ const otpRouter = require("./otp");
 const postRouter = require("./post");
 const multer = require("multer");
 app.use(cors({
-    origin:"http://localhost:3000",
+    origin:"https://todos-task-manager-front.vercel.app",
     credentials:true
 }))
 app.use(express.json());
@@ -24,7 +24,7 @@ console.log(err);
 }
 connectDB();
 app.get("/",(req,res)=>{
-    res.set("Access-Control-Allow-Origin","http://localhost:3000");
+    res.set("Access-Control-Allow-Origin","https://todos-task-manager-front.vercel.app");
     res.set("Access-Control-Allow-Credentials","true");
     res.send("hello")
 })
@@ -55,7 +55,7 @@ app.post("/uploadPic",upload.single("img"),async(req,res)=>{
     const email = req.body.email;
     const user = await userModel.findOne({email}).exec();
     if(user){
-        user.image = `http://localhost:5000/${req.file.filename}`;
+        user.image = `https://todos-task-manager-back.onrender.com/${req.file.filename}`;
         await user.save();
     }
     res.status(200).json("image uploaded");
