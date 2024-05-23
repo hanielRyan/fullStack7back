@@ -17,7 +17,7 @@ router.post("/verifyOtp",async(req,res)=>{
             user.expireDate = null,
             user.otp = null;
             await user.save();
-            res.clearCookie("email",{secure:true});
+            res.clearCookie("email",{secure:true,sameSite:"none"});
             res.json("user verified");
         }else{
             res.status(400).json("invalid otp");
