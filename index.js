@@ -50,7 +50,7 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage,
 })
-
+ 
 app.post("/uploadPic",upload.single("img"),async(req,res)=>{
     const email = req.body.email;
     const user = await userModel.findOne({email}).exec();
